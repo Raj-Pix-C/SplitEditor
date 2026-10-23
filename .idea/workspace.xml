@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a51bdf48-c452-4c30-b53d-85392c0aa39d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/SplitEditor.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/split_editor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/split_editor_feature_update1.py" afterDir="false" />
+    <list default="true" id="a51bdf48-c452-4c30-b53d-85392c0aa39d" name="Changes" comment="added gitignore to reduce headache">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Raj-Pix-C"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Raj-Pix-C/SplitEditor.git",
+    "accountId": "21c4a95c-2b2e-47fa-bac3-e0c50701b9e4"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 8
 }]]></component>
@@ -34,6 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
     "Python.split_editor_feature_update1.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -61,7 +67,29 @@
       <option name="presentableId" value="Default" />
       <updated>1792762634977</updated>
     </task>
+    <task id="LOCAL-00001" summary="initial version and feature update 1 in one go.&#10;may seem like a waste but I'm keeping all version codes.&#10;purpose? learning by reading generated code ofcourse.">
+      <option name="closed" value="true" />
+      <created>1792763178076</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1792763178076</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added gitignore to reduce headache">
+      <option name="closed" value="true" />
+      <created>1792763325436</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1792763325436</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial version and feature update 1 in one go.&#10;may seem like a waste but I'm keeping all version codes.&#10;purpose? learning by reading generated code ofcourse." />
+    <MESSAGE value="added gitignore to reduce headache" />
+    <option name="LAST_COMMIT_MESSAGE" value="added gitignore to reduce headache" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
