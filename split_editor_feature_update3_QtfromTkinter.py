@@ -26,6 +26,7 @@ edited_chunks  : one list of lines per page, in original-page coordinates.
 import bisect
 import codecs
 import csv
+import faulthandler
 import io
 import json
 import re
@@ -37,7 +38,7 @@ from difflib import SequenceMatcher
 from PySide6.QtCore import QPoint, Qt, QTimer, Signal
 from PySide6.QtGui import (QColor, QFont, QFontDatabase, QKeySequence, QShortcut,
                            QTextCharFormat, QTextCursor, QTextFormat)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFileDialog, QFontComboBox, QHBoxLayout,
+from PySide6.QtWidgets import (QApplication, QComboBox, QFileDialog, QHBoxLayout,
                                QLabel, QMainWindow, QMenu, QMessageBox, QPlainTextEdit,
                                QPushButton, QSizePolicy, QSpinBox, QTextEdit, QVBoxLayout, QWidget)
 
@@ -83,6 +84,10 @@ FONT_CANDIDATES = [
     "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", "Kalpurush", "SolaimanLipi",
     "Lohit Bengali", "Kohinoor Bangla", "Segoe UI", "Noto Sans", "DejaVu Sans",
 ]
+# Appended after the chosen font so Arabic etc. fall back to a sensible font
+# instead of whatever Qt happens to find first (only installed ones are used).
+FALLBACK_FONTS = ["Noto Sans Bengali", "Noto Naskh Arabic", "Noto Sans Arabic", "Amiri",
+                  "Segoe UI", "Nirmala UI", "DejaVu Sans", "Arial"]
 PAGE_SIZES = ["25", "50", "100", "250", "500", "1000", "All"]
 DEFAULT_PAGE_SIZE = 100
 
@@ -404,7 +409,11 @@ class SplitEditor(QMainWindow):
         row2.addWidget(self.enc_box)
         row2.addSpacing(14)
         row2.addWidget(QLabel("Font:"))
-        self.font_box = QFontComboBox()
+        # Plain list of Bengali-capable families (a QFontComboBox would load a
+        # preview of EVERY installed font, which can crash on broken fonts).
+        self.font_box = QComboBox()
+        bn = sorted(set(QFontDatabase.families(QFontDatabase.WritingSystem.Bengali)))
+        self.font_box.addItems(bn or sorted(set(QFontDatabase.families())))
         self.font_box.setFixedWidth(240)
         row2.addWidget(self.font_box)
         self.fsize = QSpinBox()
@@ -437,9 +446,11 @@ class SplitEditor(QMainWindow):
         fams = set(QFontDatabase.families())
         fam = next((f for f in FONT_CANDIDATES if f in fams), None)
         if fam:
-            self.font_box.setCurrentFont(QFont(fam))
+            if self.font_box.findText(fam) < 0:
+                self.font_box.addItem(fam)
+            self.font_box.setCurrentText(fam)
         self._apply_font()
-        self.font_box.currentFontChanged.connect(self._apply_font)
+        self.font_box.currentTextChanged.connect(self._apply_font)
         self.fsize.valueChanged.connect(self._apply_font)
 
         # behaviour
@@ -460,7 +471,11 @@ class SplitEditor(QMainWindow):
         return sync
 
     def _apply_font(self, *_):
-        font = QFont(self.font_box.currentFont())
+        primary = self.font_box.currentText()
+        installed = set(QFontDatabase.families())
+        font = QFont()
+        if primary:
+            font.setFamilies([primary] + [f for f in FALLBACK_FONTS if f in installed and f != primary])
         font.setPointSize(self.fsize.value())
         self.left.setFont(font)
         self.right.setFont(font)
@@ -791,6 +806,7 @@ class SplitEditor(QMainWindow):
 
 
 def main():
+    faulthandler.enable()  # a native crash now prints the Python stack
     app = QApplication(sys.argv)
     win = SplitEditor()
     win.show()
